@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 
 @Controller("languages")
 export class LanguagesController {
@@ -16,5 +16,22 @@ export class LanguagesController {
     }
 
     return languages[+id];
+  }
+
+  @Post()
+  addLanguage(@Body("name") name: string) {
+    const languages = this.getLanguages()
+
+    if (name === "" || name === undefined) {
+      return "Please provide a language name";
+    }
+
+    if (languages.indexOf("name") > -1) {
+      return "Language already exists";
+    }
+    languages.push(name);
+
+    return `Added ${name} to the list of lanaguages`
+      
   }
 }
