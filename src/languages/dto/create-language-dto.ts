@@ -20,7 +20,7 @@ export class CreateLanguageDTO {
 	readonly typingStyles: "static" | "dynamic";
 
 	@IsArray()
-	@IsString()
+	@IsString({ each: true })
 	@IsNotEmpty()
 	readonly applicationIn: string[];
 }
