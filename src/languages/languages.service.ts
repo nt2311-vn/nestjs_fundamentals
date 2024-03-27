@@ -4,7 +4,7 @@ import { Injectable } from "@nestjs/common";
 export class LanguagesService {
 	private readonly languages = ["Javascript", "Typescript", "Python", "Go"];
 
-	create(language: string) {
+	create(language: any) {
 		this.languages.push(language);
 	}
 
