@@ -8,6 +8,7 @@ import {
 	Put,
 } from "@nestjs/common";
 import { LanguagesService } from "./languages.service";
+import { CreateLanguageDTO } from "./dto/create-language-dto";
 
 @Controller("languages")
 export class LanguagesController {
@@ -30,18 +31,8 @@ export class LanguagesController {
 	}
 
 	@Post()
-	addLanguage(@Body("name") name: string) {
-		const languages = this.languagesService.findAll();
-
-		if (name === "" || name === undefined) {
-			return "Please provide a language name";
-		}
-
-		if (languages.indexOf("name") > -1) {
-			return "Language already exists";
-		}
-		this.languagesService.create(name);
-		return `Added ${name} to the list of lanaguages`;
+	addLanguage(@Body() createLanguageDTO: CreateLanguageDTO) {
+		return this.languagesService.create(createLanguageDTO);
 	}
 
 	@Put(":id")
