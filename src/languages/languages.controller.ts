@@ -6,6 +6,7 @@ import {
 	HttpException,
 	HttpStatus,
 	Param,
+	ParseIntPipe,
 	Post,
 	Put,
 } from "@nestjs/common";
@@ -29,14 +30,20 @@ export class LanguagesController {
 	}
 
 	@Get(":id")
-	getLanguageById(@Param("id") id: string) {
-		const languages = this.languagesService.findAll();
+	getLanguageById(
+		@Param(
+			"id",
+			new ParseIntPipe({ errorHttpStatusCode: HttpStatus.BAD_REQUEST }),
+		)
+		id: number,
+	) {
+		const language = this.languagesService.findById(id);
 
-		if (+id > languages.length) {
-			return "Language not found";
+		if (!language) {
+			throw new HttpException("Not found", HttpStatus.NOT_FOUND);
 		}
 
-		return this.languagesService.findById(+id);
+		return language;
 	}
 
 	@Post()
