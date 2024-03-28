@@ -1,12 +1,13 @@
 import { Module } from "@nestjs/common";
 import { LanguagesController } from "./languages.controller";
 import { LanguagesService } from "./languages.service";
+import { connection } from "src/common/constants/connection";
 
-const mockLanguagesService = {
-	findAll() {
-		return ["JavaScript", "TypeScript", "Go", "Python", "Elixir"];
-	},
-};
+// const mockLanguagesService = {
+// 	findAll() {
+// 		return ["JavaScript", "TypeScript", "Go", "Python", "Elixir"];
+// 	},
+// };
 
 @Module({
 	controllers: [LanguagesController],
@@ -17,8 +18,8 @@ const mockLanguagesService = {
 		// 	useClass: LanguagesService,
 		// },
 		{
-			provide: LanguagesService,
-			useValue: mockLanguagesService,
+			provide: "CONNECTION",
+			useValue: connection,
 		},
 	],
 })
