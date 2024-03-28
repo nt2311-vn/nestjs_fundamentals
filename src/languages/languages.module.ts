@@ -1,9 +1,15 @@
 import { Module } from "@nestjs/common";
 import { LanguagesController } from "./languages.controller";
-import { LanguagesService } from './languages.service';
+import { LanguagesService } from "./languages.service";
 
 @Module({
 	controllers: [LanguagesController],
-	providers: [LanguagesService],
+	providers: [
+		// LanguagesService
+		{
+			provide: LanguagesService,
+			useClass: LanguagesService,
+		},
+	],
 })
 export class LanguagesModule {}
