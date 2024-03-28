@@ -4,7 +4,7 @@ import { LanguagesService } from "./languages.service";
 
 const mockLanguagesService = {
 	findAll() {
-		return ["JavaScript", "TypeScript", "Go", "Python"];
+		return ["JavaScript", "TypeScript", "Go", "Python", "Elixir"];
 	},
 };
 
