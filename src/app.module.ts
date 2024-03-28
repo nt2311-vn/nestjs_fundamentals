@@ -4,11 +4,18 @@ import { AppService } from "./app.service";
 import { LanguagesModule } from "./languages/languages.module";
 import { LoggerMiddleware } from "./common/middleware/logger.middleware";
 import { LanguagesController } from "./languages/languages.controller";
+import { DevConfigService } from "./common/providers/DevConfigService";
 
 @Module({
 	imports: [LanguagesModule],
 	controllers: [AppController],
-	providers: [AppService],
+	providers: [
+		AppService,
+		{
+			provide: DevConfigService,
+			useClass: DevConfigService,
+		},
+	],
 })
 export class AppModule implements NestModule {
 	configure(consumer: MiddlewareConsumer) {
