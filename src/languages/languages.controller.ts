@@ -3,6 +3,8 @@ import {
 	Controller,
 	Delete,
 	Get,
+	HttpException,
+	HttpStatus,
 	Param,
 	Post,
 	Put,
@@ -16,7 +18,14 @@ export class LanguagesController {
 
 	@Get()
 	getLanguages() {
-		return this.languagesService.findAll();
+		try {
+			return this.languagesService.findAll();
+		} catch (err) {
+			throw new HttpException(
+				`Error: ${err.message}`,
+				HttpStatus.INTERNAL_SERVER_ERROR,
+			);
+		}
 	}
 
 	@Get(":id")
