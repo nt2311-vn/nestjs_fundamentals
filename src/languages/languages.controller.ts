@@ -5,6 +5,7 @@ import {
 	Get,
 	HttpException,
 	HttpStatus,
+	Inject,
 	Param,
 	ParseIntPipe,
 	Post,
@@ -12,10 +13,17 @@ import {
 } from "@nestjs/common";
 import { LanguagesService } from "./languages.service";
 import { CreateLanguageDTO } from "./dto/create-language-dto";
+import { Connection } from "src/common/constants/connection";
 
 @Controller("languages")
 export class LanguagesController {
-	constructor(private languagesService: LanguagesService) {}
+	constructor(
+		private languagesService: LanguagesService,
+		@Inject("CONNECTION")
+		private connection: Connection,
+	) {
+		console.log(`Connection string: ${this.connection.CONNECTION_STRING}`);
+	}
 
 	@Get()
 	getLanguages() {
